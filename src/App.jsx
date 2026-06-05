@@ -13,7 +13,6 @@ import LiquidTransitionProvider from './components/LiquidTransition'
 
 import Landing from './pages/Landing'
 import Home from './pages/Home'
-import Work from './pages/Work'
 import CaseStudy from './pages/CaseStudy'
 import Contact from './pages/Contact'
 
@@ -41,7 +40,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<CaseStudy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Landing />} />

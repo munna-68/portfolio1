@@ -19,21 +19,57 @@ function ArrowIcon() {
   )
 }
 
-function CtaLink({ children, to }) {
-  if (to) {
-    return (
-      <Link to={to} className="pointer-events-auto pill-link">
-        {children} <ArrowIcon />
-      </Link>
-    )
-  }
+function ExternalArrow() {
   return (
-    <a
-      href="#"
-      className="pointer-events-auto inline-flex items-center gap-3 px-6 py-3 rounded-full border border-ink/20 text-[11px] font-mono tracking-widest uppercase hover:bg-ink hover:text-cream transition-all duration-300"
+    <svg
+      className="w-3 h-3"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
     >
-      {children} <ArrowIcon />
-    </a>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+      />
+    </svg>
+  )
+}
+
+/**
+ * 3-button stack used for each project panel:
+ *   1. View case study  → pill-link-solid (large, solid)
+ *   2. Live site        → pill-link-large (large, outline)
+ *   3. GitHub           → pill-link       (smaller, outline)
+ */
+function ProjectActions({ to, liveUrl, repoUrl }) {
+  return (
+    <div className="flex flex-col items-start gap-3">
+      <Link to={to} className="pointer-events-auto pill-link-solid">
+        View case study <ArrowIcon />
+      </Link>
+      {liveUrl ? (
+        <a
+          href={liveUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="pointer-events-auto pill-link-large"
+        >
+          Live site <ExternalArrow />
+        </a>
+      ) : null}
+      {repoUrl ? (
+        <a
+          href={repoUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="pointer-events-auto pill-link"
+        >
+          GitHub <ExternalArrow />
+        </a>
+      ) : null}
+    </div>
   )
 }
 
@@ -79,14 +115,20 @@ export default function InfoPanels() {
             {p.isButton ? (
               <CtaButton to={p.to}>{p.cta}</CtaButton>
             ) : (
-              <CtaLink to={p.to}>{p.cta}</CtaLink>
+              <ProjectActions
+                to={p.to}
+                liveUrl={p.liveUrl}
+                repoUrl={p.repoUrl}
+              />
             )}
           </div>
           <div className="border-t border-ink/10 pt-6">
             <p className="text-xs font-mono tracking-wider uppercase text-ink/50 mb-2">
               {p.scopeLabel}
             </p>
-            <p className="text-xs leading-relaxed text-ink/80 max-w-sm">{p.scope}</p>
+            <p className="text-xs leading-relaxed text-ink/80 max-w-sm">
+              {p.scope}
+            </p>
           </div>
         </div>
       ))}

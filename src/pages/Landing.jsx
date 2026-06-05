@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { TransitionLink } from '../components/LiquidTransition'
-import ProjectCard from '../components/ProjectCard'
+import MediaStage from '../components/MediaStage'
+import InfoPanels from '../components/InfoPanels'
 import { usePageEntrance } from '../hooks/usePageEntrance'
-import { useProjectCardReveal } from '../hooks/useProjectCardReveal'
-import { projects } from '../data/projects'
+import { useScrollTimeline } from '../hooks/useScrollTimeline'
 
 function ArrowRight() {
   return (
@@ -107,10 +107,20 @@ function VideoTile() {
 
 export default function Landing() {
   const rootRef = useRef(null)
-  usePageEntrance(rootRef)
-  useProjectCardReveal(rootRef)
+  const scrollRootRef = useRef(null)
 
-  // Scroll indicator — only meaningful when the intro fits the viewport.
+  // Entrance reveal for the surrounding sections (intro, video, cta).
+  // Scoped to rootRef so it never reaches across into the scroll showcase,
+  // which is animated by useScrollTimeline.
+  usePageEntrance(rootRef)
+
+  // Scroll-driven work showcase. Scoped to scrollRootRef so the entrance
+  // .text-char-slide reveal only animates the hero text inside the
+  // showcase, never the surrounding landing-page sections.
+  useScrollTimeline(scrollRootRef)
+
+  // Intro scroll indicator — fades in on load, then fades as the user
+  // scrolls past the intro section.
   const indicatorRef = useRef(null)
   useEffect(() => {
     const el = indicatorRef.current
@@ -131,6 +141,69 @@ export default function Landing() {
     return () => {
       window.clearTimeout(enterTimer)
       window.clearTimeout(handoffTimer)
+      if (scrollHandler) window.removeEventListener('scroll', scrollHandler)
+    }
+  }, [])
+
+  // Showcase scroll indicator — fades in once the pinned-viewport is
+  // active, then hands over to a scroll-driven fade as the user begins
+  // the morph. Computes progress relative to the scroll-space's own
+  // position so the fade timing stays correct regardless of where the
+  // showcase sits on the page.
+  const workIndicatorRef = useRef(null)
+  useEffect(() => {
+    const el = workIndicatorRef.current
+    if (!el) return
+    el.style.transition = 'opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1)'
+
+    let activated = false
+    let scrollHandler
+
+    const enterTimer = window.setTimeout(() => {
+      el.style.opacity = '1'
+    }, 1000)
+
+    const activate = () => {
+      if (activated) return
+      activated = true
+      el.style.transition = 'opacity 0.4s ease-out'
+      scrollHandler = () => {
+        const ss = document.getElementById('scroll-space')
+        if (!ss) return
+        const ssRect = ss.getBoundingClientRect()
+        // Scroll progress within the scroll-space (0 at top, grows as user scrolls).
+        const progress = Math.max(
+          0,
+          Math.min(1, -ssRect.top / Math.max(1, ss.offsetHeight - window.innerHeight))
+        )
+        // Fade over the first 18% of the morph so the indicator clears
+        // before the first project panel settles in.
+        el.style.opacity = String(Math.max(0, 1 - progress / 0.18))
+      }
+      window.addEventListener('scroll', scrollHandler, { passive: true })
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+            activate()
+          }
+        }
+      },
+      { threshold: [0, 0.3, 0.6, 0.9] }
+    )
+    const pinned = document.getElementById('pinned-viewport')
+    if (pinned) observer.observe(pinned)
+
+    // Fallback: if for some reason IntersectionObserver never fires,
+    // activate after a long timeout so the indicator is still interactive.
+    const fallbackTimer = window.setTimeout(activate, 3000)
+
+    return () => {
+      window.clearTimeout(enterTimer)
+      window.clearTimeout(fallbackTimer)
+      observer.disconnect()
       if (scrollHandler) window.removeEventListener('scroll', scrollHandler)
     }
   }, [])
@@ -197,45 +270,62 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* FEATURED WORK — the dominant section */}
+      {/* SELECTED WORK — the dominant section, scroll-driven showcase */}
       <section
         id="work"
-        className="relative px-[5vw] md:px-[8vw] py-24 md:py-36"
+        className="relative"
         data-landing-work
       >
-        <div className="max-w-8xl mx-auto">
-          <div className="flex items-end justify-between gap-6 mb-14 md:mb-20">
-            <div>
-              <p className="label-eyebrow text-ink/50 mb-5">
+        <div
+          ref={scrollRootRef}
+          id="scroll-space"
+          className="w-full relative h-[800vh]"
+        >
+          <div
+            id="pinned-viewport"
+            className="sticky top-0 left-0 w-full h-screen overflow-hidden flex justify-center items-center"
+          >
+            <div
+              id="hero-text-wrapper"
+              className="absolute inset-0 flex flex-col justify-center items-center text-center z-20 pointer-events-none px-4"
+            >
+              <span className="label-eyebrow text-ink/55 mb-7">
                 <span className="text-line-mask inline-block">
-                  <span className="text-char-slide">Featured work —</span>
+                  <span className="text-char-slide">
+                    munna-68 · web developer
+                  </span>
                 </span>
-              </p>
-              <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl font-medium tracking-[-0.035em] leading-[0.98] text-ink max-w-[14ch]">
+              </span>
+
+              <h1 className="font-serif text-[15vw] md:text-[12rem] lg:text-[11.5rem] font-medium tracking-[-0.04em] text-ink leading-[0.92] mb-6">
                 <span className="text-line-mask">
                   <span className="text-char-slide">
-                    Selected projects, 2026
+                    Selected work
                     <span className="text-accent italic font-normal">.</span>
                   </span>
                 </span>
-              </h2>
+              </h1>
+
+              <p className="max-w-xl text-sm md:text-[15px] text-ink/75 font-medium leading-relaxed tracking-wide px-4">
+                <span className="text-line-mask">
+                  <span className="text-char-slide">
+                    An independent web developer crafting considered digital
+                    experiences — type, motion, and code, in that order.
+                  </span>
+                </span>
+              </p>
             </div>
 
-            <div className="hidden md:flex flex-col items-end gap-2 text-right">
-              <span className="label-eyebrow text-ink/45">
-                Hospitality · Travel · Studio
-              </span>
-              <span className="label-eyebrow text-ink/35">3 projects</span>
+            <div ref={workIndicatorRef} className="scroll-indicator">
+              <span>scroll</span>
+              <ArrowDown />
+              <div className="line">
+                <div className="dot" />
+              </div>
             </div>
-          </div>
 
-          <div className="flex flex-col gap-28 md:gap-40">
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.slug}
-                project={project}
-              />
-            ))}
+            <MediaStage />
+            <InfoPanels />
           </div>
         </div>
       </section>

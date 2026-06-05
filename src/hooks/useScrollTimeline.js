@@ -4,13 +4,21 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export function useScrollTimeline() {
+export function useScrollTimeline(rootRef) {
   useEffect(() => {
+    const root = rootRef?.current ?? undefined
     const ctx = gsap.context(() => {
+      // Scope-aware entrance: only animate text-char-slide elements inside
+      // the root (if provided) so the surrounding landing-page sections
+      // are not picked up by the entrance reveal.
       // Entrance animation (runs once on mount)
+      const textSlides = root
+        ? root.querySelectorAll('.text-char-slide')
+        : document.querySelectorAll('.text-char-slide')
+
       gsap
         .timeline()
-        .to('.text-char-slide', {
+        .to(textSlides, {
           y: '0%',
           duration: 1.8,
           stagger: 0.15,
@@ -191,5 +199,5 @@ export function useScrollTimeline() {
     })
 
     return () => ctx.revert() // kills all tweens + ScrollTriggers created inside
-  }, [])
+  }, [rootRef])
 }

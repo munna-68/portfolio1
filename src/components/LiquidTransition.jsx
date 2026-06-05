@@ -51,7 +51,6 @@ export function TransitionLink({ to, onClick, children, ...rest }) {
 
 const NAV_ITEMS = [
   { to: '/', label: 'Work', end: true },
-  { to: '/work', label: 'Selected' },
   { to: '/home', label: 'Home' },
   { to: '/contact', label: 'Contact' },
 ]
