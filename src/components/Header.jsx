@@ -1,12 +1,5 @@
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useLiquidTransition } from './LiquidTransition'
-
-const NAV_ITEMS = [
-  { to: '/', label: 'Home', end: true },
-  { to: '/work', label: 'Work', end: false },
-  { to: '/about', label: 'About', end: false },
-  { to: '/contact', label: 'Contact', end: false },
-]
 
 export default function Header() {
   const { isMenuVisible, toggleMenu, navigateTo } = useLiquidTransition()
@@ -24,19 +17,6 @@ export default function Header() {
     e.preventDefault()
     navigateTo(to)
   }
-
-  const navClass = ({ isActive }) =>
-    [
-      'group inline-flex items-center gap-2 text-[11px] font-mono uppercase',
-      'tracking-widest-2 transition-colors duration-500',
-      isActive
-        ? isMenuVisible
-          ? 'text-cream'
-          : 'text-ink'
-        : isMenuVisible
-        ? 'text-cream/40 hover:text-cream/80'
-        : 'text-ink/35 hover:text-ink/80',
-    ].join(' ')
 
   return (
     <header
@@ -98,44 +78,14 @@ export default function Header() {
         </span>
       </div>
 
-      {/* Desktop nav — intercepts clicks for the liquid page transition. */}
-      <nav className="pointer-events-auto hidden md:flex flex-col items-end gap-2 md:gap-2.5">
-        {NAV_ITEMS.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            onClick={(e) => onLinkClick(e, item.to)}
-            className={navClass}
-          >
-            {({ isActive }) => (
-              <>
-                <span
-                  aria-hidden
-                  className={[
-                    'inline-block w-1.5 h-1.5 rounded-full transition-all duration-500',
-                    isActive
-                      ? 'bg-accent opacity-100 scale-100'
-                      : isMenuVisible
-                      ? 'bg-cream opacity-0 scale-50 group-hover:opacity-40 group-hover:scale-75'
-                      : 'bg-ink opacity-0 scale-50 group-hover:opacity-40 group-hover:scale-75',
-                  ].join(' ')}
-                />
-                {item.label}
-              </>
-            )}
-          </NavLink>
-        ))}
-      </nav>
-
-      {/* Mobile hamburger — opens the liquid curtain menu. */}
+      {/* Hamburger trigger — single navigation affordance across all viewports. */}
       <button
         type="button"
         onClick={toggleMenu}
         aria-label={isMenuVisible ? 'Close menu' : 'Open menu'}
         aria-expanded={isMenuVisible}
         aria-controls="liquid-curtain-menu"
-        className="pointer-events-auto md:hidden flex items-center gap-3 mt-2 group"
+        className="pointer-events-auto flex items-center gap-3 md:gap-4 mt-2 group"
       >
         <span
           className={[
