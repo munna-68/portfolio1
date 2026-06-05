@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 
 import BackgroundDecor from './components/BackgroundDecor'
-import CustomCursor from './components/CustomCursor'
+
 import Header from './components/Header'
 import LiquidTransitionProvider from './components/LiquidTransition'
 
@@ -34,7 +34,6 @@ export default function App() {
           {/* Persistent editorial shell — never re-mounts on route change. */}
           <BackgroundDecor />
           <div className="grain-overlay" aria-hidden />
-          <CustomCursor />
           <Header />
 
           <Routes>

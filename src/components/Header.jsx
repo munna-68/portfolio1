@@ -26,7 +26,7 @@ export default function Header() {
       <Link
         to="/"
         onClick={(e) => onLinkClick(e, '/')}
-        className="pointer-events-auto flex flex-col leading-none group"
+        className="pointer-events-auto leading-none group"
         aria-label="Munna — Home"
       >
         <span
@@ -46,16 +46,6 @@ export default function Header() {
           >
             .
           </span>
-        </span>
-        <span
-          className={[
-            'mt-1.5 label-eyebrow transition-colors duration-500',
-            isMenuVisible
-              ? 'text-cream/45 group-hover:text-cream/70'
-              : 'text-ink/50 group-hover:text-ink/70',
-          ].join(' ')}
-        >
-          web&nbsp;developer · @munna-68
         </span>
       </Link>
 

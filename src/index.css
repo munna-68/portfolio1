@@ -133,12 +133,7 @@
   object-fit: cover;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  body.has-custom-cursor,
-  body.has-custom-cursor * {
-    cursor: none !important;
-  }
-}
+
 
 /* Inner-page media starts hidden to avoid flash; the page entrance reveals it. */
 .page-media {
