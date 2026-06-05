@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { projects } from '../data/projects'
 
 function ArrowIcon() {
@@ -18,7 +19,14 @@ function ArrowIcon() {
   )
 }
 
-function CtaLink({ children }) {
+function CtaLink({ children, to }) {
+  if (to) {
+    return (
+      <Link to={to} className="pointer-events-auto pill-link">
+        {children} <ArrowIcon />
+      </Link>
+    )
+  }
   return (
     <a
       href="#"
@@ -29,7 +37,14 @@ function CtaLink({ children }) {
   )
 }
 
-function CtaButton({ children }) {
+function CtaButton({ children, to }) {
+  if (to) {
+    return (
+      <Link to={to} className="pointer-events-auto pill-link-solid">
+        {children} <ArrowIcon />
+      </Link>
+    )
+  }
   return (
     <button
       type="button"
@@ -61,7 +76,11 @@ export default function InfoPanels() {
             <h2 className="font-serif text-5xl lg:text-7xl text-ink font-medium tracking-tight mb-6">
               {p.title}
             </h2>
-            {p.isButton ? <CtaButton>{p.cta}</CtaButton> : <CtaLink>{p.cta}</CtaLink>}
+            {p.isButton ? (
+              <CtaButton to={p.to}>{p.cta}</CtaButton>
+            ) : (
+              <CtaLink to={p.to}>{p.cta}</CtaLink>
+            )}
           </div>
           <div className="border-t border-ink/10 pt-6">
             <p className="text-xs font-mono tracking-wider uppercase text-ink/50 mb-2">

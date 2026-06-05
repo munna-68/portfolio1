@@ -3,20 +3,46 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --cream: #f5f2ed;
+    --paper: #efece4;
+    --ink: #2e3326;
+    --accent: #8b7ea8;
+  }
+  html {
+    background-color: var(--cream);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
   body {
     background-color: theme('colors.cream');
     font-family: 'Plus Jakarta Sans', sans-serif;
     color: theme('colors.ink');
     overflow-x: hidden;
+    font-feature-settings: 'ss01', 'ss02';
+  }
+  ::selection {
+    background-color: theme('colors.ink');
+    color: theme('colors.cream');
   }
 }
 
 @layer components {
   .font-serif {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
   }
   .font-mono {
     font-family: 'Space Mono', monospace;
+  }
+  .label-eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 10.5px;
+    font-weight: 400;
   }
 }
 
@@ -30,6 +56,9 @@
   background: #d8d5cb;
   border-radius: 10px;
 }
+::-webkit-scrollbar-thumb:hover {
+  background: #c4bfb1;
+}
 
 .grid-column-line {
   width: 1px;
@@ -41,15 +70,24 @@
   z-index: 1;
 }
 
+@media (max-width: 768px) {
+  .grid-column-lines-mobile-hide .grid-column-line:nth-child(2),
+  .grid-column-lines-mobile-hide .grid-column-line:nth-child(3),
+  .grid-column-lines-mobile-hide .grid-column-line:nth-child(4) {
+    display: none;
+  }
+}
+
 .text-line-mask {
   overflow: hidden;
   display: inline-block;
   vertical-align: bottom;
+  line-height: 1.05;
 }
 
 .text-char-slide {
-  transform: translateY(115%);
   display: inline-block;
+  transform: translateY(115%);
   will-change: transform;
 }
 
@@ -57,8 +95,8 @@
   background: radial-gradient(
     circle,
     rgba(179, 198, 224, 0.45) 0%,
-    rgba(214, 201, 227, 0.3) 45%,
-    rgba(243, 241, 235, 0) 70%
+    rgba(214, 201, 227, 0.32) 45%,
+    rgba(245, 242, 237, 0) 70%
   );
   filter: blur(40px);
   mix-blend-mode: multiply;
@@ -100,4 +138,131 @@
   body.has-custom-cursor * {
     cursor: none !important;
   }
+}
+
+/* Inner-page media starts hidden to avoid flash; the page entrance reveals it. */
+.page-media {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Film-grain overlay — fixed, very subtle, sits over background below content. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.95 0 0 0 0 0.95 0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+}
+
+/* Scroll indicator (Home) */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+}
+.scroll-indicator .label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: rgba(46, 51, 38, 0.55);
+}
+.scroll-indicator .line {
+  width: 1px;
+  height: 44px;
+  background: rgba(46, 51, 38, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-indicator .dot {
+  width: 1px;
+  height: 12px;
+  background: rgba(46, 51, 38, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: dotTravel 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes dotTravel {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(370%);
+  }
+}
+
+/* Editorial hairline (thin rule used in editorial layouts) */
+.hairline {
+  height: 1px;
+  background: rgba(46, 51, 38, 0.12);
+  width: 100%;
+}
+
+/* Pill button (View Case Study etc.) */
+.pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(46, 51, 38, 0.2);
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: theme('colors.ink');
+  background: transparent;
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  white-space: nowrap;
+}
+.pill-link:hover {
+  background: theme('colors.ink');
+  color: theme('colors.cream');
+  border-color: theme('colors.ink');
+  gap: 1.1rem;
+}
+.pill-link .arrow {
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.pill-link:hover .arrow {
+  transform: translateX(3px);
+}
+
+.pill-link-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.15rem 2rem;
+  border-radius: 9999px;
+  background: theme('colors.ink');
+  color: theme('colors.cream');
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.pill-link-solid:hover {
+  background: theme('colors.accent');
+  gap: 1.1rem;
+}
+
+/* Subtle focus ring */
+*:focus-visible {
+  outline: 1px solid theme('colors.ink');
+  outline-offset: 3px;
+  border-radius: 2px;
 }

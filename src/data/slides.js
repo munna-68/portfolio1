@@ -3,23 +3,28 @@ export const PEXELS_VIDEO =
 export const LOCAL_FALLBACK = '69de95cf6267f600255573_2.mp4'
 
 export const slides = [
-  { id: 1, overlay: null, label: null, heading: null },
+  {
+    id: 1,
+    overlay: 'bg-stone-900/10 mix-blend-multiply',
+    label: null,
+    heading: null,
+  },
   {
     id: 2,
-    overlay: 'bg-sky-950/10 mix-blend-overlay',
+    overlay: 'bg-purple-950/25 mix-blend-multiply',
     label: null,
     heading: null,
   },
   {
     id: 3,
-    overlay: 'bg-emerald-950/10 mix-blend-overlay',
+    overlay: 'bg-stone-950/35 mix-blend-multiply',
     label: null,
     heading: null,
   },
   {
     id: 4,
-    overlay: 'bg-stone-900/40 mix-blend-multiply',
-    label: 'interactive_terminal',
-    heading: 'Explore Ecosystem',
+    overlay: 'bg-stone-950/55 mix-blend-multiply',
+    label: 'available',
+    heading: 'Get in touch',
   },
 ]

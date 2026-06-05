@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import { useLocation } from 'react-router-dom'
 
 const FINE_POINTER = '(hover: hover) and (pointer: fine)'
 
@@ -7,6 +8,7 @@ export default function CustomCursor() {
   const cursorRef = useRef(null)
   const enabled =
     typeof window !== 'undefined' && window.matchMedia(FINE_POINTER).matches
+  const { pathname } = useLocation()
 
   useEffect(() => {
     if (!enabled || !cursorRef.current) return
@@ -47,7 +49,7 @@ export default function CustomCursor() {
       })
       document.body.classList.remove('has-custom-cursor')
     }
-  }, [enabled])
+  }, [enabled, pathname])
 
   if (!enabled) return null
 
