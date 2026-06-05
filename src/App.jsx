@@ -9,6 +9,7 @@ import {
 import BackgroundDecor from './components/BackgroundDecor'
 import CustomCursor from './components/CustomCursor'
 import Header from './components/Header'
+import LiquidTransitionProvider from './components/LiquidTransition'
 
 import Home from './pages/Home'
 import Work from './pages/Work'
@@ -26,23 +27,25 @@ function ScrollToTop() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
+      <LiquidTransitionProvider>
+        <ScrollToTop />
 
-      <div className="relative min-h-screen bg-cream">
-        {/* Persistent editorial shell — never re-mounts on route change. */}
-        <BackgroundDecor />
-        <div className="grain-overlay" aria-hidden />
-        <CustomCursor />
-        <Header />
+        <div className="relative min-h-screen bg-cream">
+          {/* Persistent editorial shell — never re-mounts on route change. */}
+          <BackgroundDecor />
+          <div className="grain-overlay" aria-hidden />
+          <CustomCursor />
+          <Header />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </div>
+      </LiquidTransitionProvider>
     </BrowserRouter>
   )
 }

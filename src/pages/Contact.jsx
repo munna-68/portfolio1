@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { TransitionLink } from '../components/LiquidTransition'
 import { usePageEntrance } from '../hooks/usePageEntrance'
 
 const LINKS = [
@@ -134,9 +135,9 @@ export default function Contact() {
         <p className="label-eyebrow text-ink/45">
           © 2026 Munna · All work shown is placeholder.
         </p>
-        <a href="/work" className="pill-link">
+        <TransitionLink to="/work" className="pill-link">
           Back to work <ArrowRight />
-        </a>
+        </TransitionLink>
       </footer>
     </main>
   )

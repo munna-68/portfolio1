@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { TransitionLink } from '../components/LiquidTransition'
 import { usePageEntrance } from '../hooks/usePageEntrance'
 
 const services = [
@@ -139,9 +140,9 @@ export default function About() {
                 </span>
               </span>
             </p>
-            <a href="/work" className="pill-link">
+            <TransitionLink to="/work" className="pill-link">
               See the work <span className="arrow">→</span>
-            </a>
+            </TransitionLink>
           </div>
         </section>
       </div>

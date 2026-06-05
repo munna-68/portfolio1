@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { TransitionLink } from '../components/LiquidTransition'
 import { usePageEntrance } from '../hooks/usePageEntrance'
 
 function ArrowDown() {
@@ -139,19 +139,19 @@ export default function Home() {
           <div className="md:col-span-5 flex flex-col sm:flex-row md:flex-col lg:flex-row items-start md:items-end gap-4">
             <span className="text-line-mask inline-block">
               <span className="text-char-slide">
-                <Link
+                <TransitionLink
                   to="/contact"
                   className="pointer-events-auto pill-link-solid"
                 >
                   Get in touch <ArrowRight />
-                </Link>
+                </TransitionLink>
               </span>
             </span>
             <span className="text-line-mask inline-block">
               <span className="text-char-slide">
-                <Link to="/work" className="pointer-events-auto pill-link">
+                <TransitionLink to="/work" className="pointer-events-auto pill-link">
                   See the work <ArrowRight />
-                </Link>
+                </TransitionLink>
               </span>
             </span>
           </div>
