@@ -1,1 +1,10 @@
-node_modules
+node_modules/
+dist/
+.DS_Store
+*.log
+.vscode/
+.idea/
+*.local
+
+# Optional: ignore local video asset (uncomment to enable)
+# *.mp4
