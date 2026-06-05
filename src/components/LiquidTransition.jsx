@@ -50,17 +50,20 @@ export function TransitionLink({ to, onClick, children, ...rest }) {
 }
 
 const NAV_ITEMS = [
-  { to: '/', label: 'Home', end: true },
-  { to: '/work', label: 'Work' },
-  { to: '/about', label: 'About' },
+  { to: '/', label: 'Work', end: true },
+  { to: '/work', label: 'Selected' },
+  { to: '/home', label: 'Home' },
   { to: '/contact', label: 'Contact' },
 ]
 
 const MENU_FOOTER = [
-  { label: 'hello@munna.dev', href: 'mailto:hello@munna.dev' },
+  { label: 'mahamudmunna8@gmail.com', href: 'mailto:mahamudmunna8@gmail.com' },
   { label: 'GitHub', href: 'https://github.com/munna-68' },
-  { label: 'Read.cv', href: 'https://read.cv/munna-68' },
-  { label: 'X / Twitter', href: 'https://x.com/munna-68' },
+  { label: 'Facebook', href: 'https://www.facebook.com/share/17ur3qWUwx/' },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/mahamud13954?igsh=dm1jNGV0d3cwdGNo',
+  },
 ]
 
 const DURATION = 850

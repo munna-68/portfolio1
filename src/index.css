@@ -255,9 +255,114 @@
   gap: 1.1rem;
 }
 
+/* Large outline pill — same dimensions as .pill-link-solid but
+   with the outline treatment. Used for "Live Site" on the work
+   page and the landing page so it sits at the same height as
+   the primary "View Case Study" solid button. */
+.pill-link-large {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.15rem 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(46, 51, 38, 0.2);
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: theme('colors.ink');
+  background: transparent;
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  white-space: nowrap;
+}
+.pill-link-large:hover {
+  background: theme('colors.ink');
+  color: theme('colors.cream');
+  border-color: theme('colors.ink');
+  gap: 1.1rem;
+}
+.pill-link-large .arrow {
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.pill-link-large:hover .arrow {
+  transform: translateX(3px);
+}
+
 /* Subtle focus ring */
 *:focus-visible {
   outline: 1px solid theme('colors.ink');
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* Form input — bottom-border editorial field */
+.field-input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(46, 51, 38, 0.2);
+  padding: 0.85rem 0;
+  font-size: 16px;
+  color: theme('colors.ink');
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.4s ease;
+  outline: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+}
+.field-input::placeholder {
+  color: rgba(46, 51, 38, 0.3);
+}
+.field-input:hover:not(:disabled) {
+  border-bottom-color: rgba(46, 51, 38, 0.4);
+}
+.field-input:focus {
+  border-bottom-color: theme('colors.ink');
+}
+.field-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.field-input--error {
+  border-bottom-color: theme('colors.accent');
+}
+.field-input--error:focus {
+  border-bottom-color: theme('colors.accent');
+}
+
+textarea.field-input {
+  resize: none;
+  min-height: 140px;
+  line-height: 1.7;
+}
+
+/* Project card — staggered entrance for the featured-work grid */
+[data-project-card] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-project-card].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Case study — gallery placeholder paper tone */
+.bg-grid-soft {
+  background-image: linear-gradient(
+      rgba(46, 51, 38, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(46, 51, 38, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Reduced motion — disable our extra reveal transitions */
+@media (prefers-reduced-motion: reduce) {
+  [data-project-card] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

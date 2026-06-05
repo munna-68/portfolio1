@@ -7,13 +7,14 @@ import {
 } from 'react-router-dom'
 
 import BackgroundDecor from './components/BackgroundDecor'
-
+import CustomCursor from './components/CustomCursor'
 import Header from './components/Header'
 import LiquidTransitionProvider from './components/LiquidTransition'
 
+import Landing from './pages/Landing'
 import Home from './pages/Home'
 import Work from './pages/Work'
-import About from './pages/About'
+import CaseStudy from './pages/CaseStudy'
 import Contact from './pages/Contact'
 
 function ScrollToTop() {
@@ -35,13 +36,15 @@ export default function App() {
           <BackgroundDecor />
           <div className="grain-overlay" aria-hidden />
           <Header />
+          <CustomCursor />
 
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/work" element={<Work />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/work/:slug" element={<CaseStudy />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<Home />} />
+            <Route path="*" element={<Landing />} />
           </Routes>
         </div>
       </LiquidTransitionProvider>
