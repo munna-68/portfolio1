@@ -111,12 +111,11 @@
   width: min(52vw, 560px);
   aspect-ratio: 16 / 10;
   height: auto;
-  max-height: 42vh;
   overflow: hidden;
   z-index: 10;
   border-radius: 1.25rem;
   box-shadow: 0 40px 90px -25px rgba(46, 51, 38, 0.25);
-  will-change: transform, width, height, left, bottom, border-radius;
+  will-change: transform, width, height, left, top, bottom, border-radius;
 }
 
 .media-slide {
