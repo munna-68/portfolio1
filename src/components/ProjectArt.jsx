@@ -318,7 +318,7 @@ export default function ProjectArt({
 
   return (
     <div
-      className="page-media relative w-full aspect-[4/3] md:aspect-[16/11] rounded-3xl overflow-hidden shadow-[0_40px_80px_-30px_rgba(26,20,36,0.55)]"
+      className="page-media relative w-full aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_40px_80px_-30px_rgba(26,20,36,0.55)]"
       style={{ background: v.base }}
     >
       <div

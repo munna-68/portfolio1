@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { useLiquidTransition } from "./LiquidTransition";
 
 export default function Header() {
-  const { isMenuVisible, toggleMenu, navigateTo } = useLiquidTransition();
+  const { isMenuVisible, isPageWipe, menuState, toggleMenu, navigateTo } =
+    useLiquidTransition();
+  const hideDuringPageWipe = isPageWipe && menuState !== "CLOSED";
 
   const onLinkClick = (e, to) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
@@ -15,7 +17,11 @@ export default function Header() {
   return (
     <header
       id="main-nav"
-      className="fixed top-0 left-0 w-full flex justify-between items-start px-[5vw] py-6 md:py-8 z-50 pointer-events-none"
+      className={[
+        "fixed top-0 left-0 w-full flex justify-between items-start px-[5vw] py-6 md:py-8 z-50 pointer-events-none transition-opacity duration-300",
+        hideDuringPageWipe ? "opacity-0" : "opacity-100",
+      ].join(" ")}
+      aria-hidden={hideDuringPageWipe}
     >
       <Link
         to="/"

@@ -55,7 +55,7 @@ export function useScrollTimeline(rootRef) {
       // STEP 1: Hero -> left-dock split layout
       tl.addLabel('morphStart', 0)
         .to(
-          '#main-nav',
+          '#hero-topbar',
           { y: -100, opacity: 0, duration: 2.0, ease: 'power3.inOut' },
           'morphStart'
         )
@@ -84,14 +84,14 @@ export function useScrollTimeline(rootRef) {
         .to(
           '#media-container',
           {
-            left: '5vw',
+            left: '3vw',
             xPercent: 0,
             x: 0,
-            bottom: '50%',
-            yPercent: 50,
-            width: '40vw',
-            height: '40vw',
-            borderRadius: '2rem',
+            bottom: '6vh',
+            yPercent: 0,
+            width: '52vw',
+            height: '88vh',
+            borderRadius: '1.25rem',
             duration: 3.0,
             ease: 'power3.inOut',
           },

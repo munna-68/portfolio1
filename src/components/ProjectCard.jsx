@@ -47,32 +47,36 @@ function ArrowOut({ size = 11 }) {
 */
 function ProjectLinks({ slug, liveUrl, repoUrl }) {
   return (
-    <div className="flex flex-col items-start gap-2.5">
+    <div className="flex flex-col items-stretch gap-2.5 w-full max-w-sm">
       <TransitionLink
         to={`/work/${slug}`}
-        className="pointer-events-auto pill-link-solid"
+        className="pointer-events-auto pill-link-solid w-full justify-center"
       >
         View case study <ArrowIcon size={12} />
       </TransitionLink>
-      {liveUrl ? (
-        <a
-          href={liveUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="pointer-events-auto pill-link-large"
-        >
-          Live site <ArrowOut size={11} />
-        </a>
-      ) : null}
-      {repoUrl ? (
-        <a
-          href={repoUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="pointer-events-auto pill-link"
-        >
-          GitHub <ArrowOut size={11} />
-        </a>
+      {liveUrl || repoUrl ? (
+        <div className="flex gap-2.5 w-full">
+          {liveUrl ? (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="pointer-events-auto pill-link-large flex-1 justify-center"
+            >
+              Live site <ArrowOut size={11} />
+            </a>
+          ) : null}
+          {repoUrl ? (
+            <a
+              href={repoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="pointer-events-auto pill-link flex-1 justify-center"
+            >
+              GitHub <ArrowOut size={11} />
+            </a>
+          ) : null}
+        </div>
       ) : null}
     </div>
   )
@@ -88,7 +92,7 @@ export default function ProjectCard({ project }) {
       <div className="md:col-span-7">
         <TransitionLink
           to={`/work/${project.slug}`}
-          className="block rounded-3xl overflow-hidden focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-ink focus-visible:outline-offset-4"
+          className="block rounded-3xl overflow-hidden aspect-[3/4] md:aspect-[4/5] focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-ink focus-visible:outline-offset-4 [&_.page-media]:!aspect-auto [&_.page-media]:h-full [&_.page-media]:w-full"
           aria-label={`Open case study — ${project.title}`}
         >
           <ProjectArt

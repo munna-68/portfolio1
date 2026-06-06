@@ -59,7 +59,7 @@ function SectionHeading({ eyebrow, title, lead }) {
         </span>
       </h2>
       {lead ? (
-        <p className="text-[15px] md:text-[16px] leading-[1.7] text-ink/65 max-w-2xl">
+        <p className="text-[15px] md:text-[16px] leading-[1.75] text-ink/75 max-w-2xl">
           <span className="text-line-mask inline-block">
             <span className="text-char-slide">{lead}</span>
           </span>
@@ -117,7 +117,7 @@ function Stack({ items }) {
       {items.map((s) => (
         <li
           key={s}
-          className="px-3 py-1.5 rounded-full border border-ink/15 text-[11.5px] font-mono tracking-wider text-ink/70"
+          className="px-3 py-1.5 rounded-full border border-ink/15 text-[11.5px] font-mono tracking-wider text-ink/80"
         >
           {s}
         </li>
@@ -129,8 +129,8 @@ function Stack({ items }) {
 function MetaRow({ label, value }) {
   return (
     <div className="flex items-baseline justify-between gap-4 py-3 border-b border-ink/10">
-      <span className="label-eyebrow text-ink/45">{label}</span>
-      <span className="text-[14px] md:text-[15px] text-ink/85 text-right">
+      <span className="label-eyebrow text-[11.5px] text-ink/55">{label}</span>
+      <span className="text-[14px] md:text-[15px] text-ink/90 text-right">
         {value}
       </span>
     </div>
@@ -153,7 +153,7 @@ export default function CaseStudy() {
   return (
     <main
       ref={rootRef}
-      className="relative pt-32 md:pt-36 pb-24 px-[5vw] md:px-[8vw]"
+      className="case-study-page relative pt-32 md:pt-36 pb-24 px-[5vw] md:px-[8vw]"
     >
       <div className="max-w-8xl mx-auto">
         {/* HERO */}
@@ -184,7 +184,7 @@ export default function CaseStudy() {
               </h1>
             </div>
             <div className="md:col-span-4">
-              <p className="text-[16px] md:text-[17px] leading-[1.6] text-ink/75 max-w-md">
+              <p className="text-[16px] md:text-[17px] leading-[1.7] text-ink/82 max-w-md">
                 <span className="text-line-mask inline-block">
                   <span className="text-char-slide">{project.summary}</span>
                 </span>
@@ -210,7 +210,7 @@ export default function CaseStudy() {
                 <MetaRow label="Category" value={project.category} />
               </div>
               <div className="mt-6">
-                <p className="label-eyebrow text-ink/45 mb-3">Stack</p>
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Stack</p>
                 <Stack items={project.stack} />
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -245,38 +245,38 @@ export default function CaseStudy() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             <div className="md:col-span-7 flex flex-col gap-8">
               <div>
-                <p className="label-eyebrow text-ink/45 mb-2">Goal</p>
-                <p className="text-[16px] md:text-[17px] leading-[1.7] text-ink/85">
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-2">Goal</p>
+                <p className="text-[16px] md:text-[17px] leading-[1.75] text-ink/90">
                   {project.overview.goal}
                 </p>
               </div>
               <div>
-                <p className="label-eyebrow text-ink/45 mb-2">Audience</p>
-                <p className="text-[16px] md:text-[17px] leading-[1.7] text-ink/85">
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-2">Audience</p>
+                <p className="text-[16px] md:text-[17px] leading-[1.75] text-ink/90">
                   {project.overview.audience}
                 </p>
               </div>
               <div>
-                <p className="label-eyebrow text-ink/45 mb-2">
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-2">
                   Business problem
                 </p>
-                <p className="text-[16px] md:text-[17px] leading-[1.7] text-ink/85">
+                <p className="text-[16px] md:text-[17px] leading-[1.75] text-ink/90">
                   {project.overview.problem}
                 </p>
               </div>
             </div>
             <div className="md:col-span-5">
-              <p className="label-eyebrow text-ink/45 mb-3">Objectives</p>
+              <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Objectives</p>
               <ul className="border-t border-ink/10">
                 {project.overview.objectives.map((o, i) => (
                   <li
                     key={i}
                     className="border-b border-ink/10 py-4 flex items-baseline gap-4"
                   >
-                    <span className="label-eyebrow text-ink/40 w-8 shrink-0">
+                    <span className="label-eyebrow text-[11.5px] text-ink/50 w-8 shrink-0">
                       0{i + 1}
                     </span>
-                    <span className="text-[15px] leading-relaxed text-ink/80">
+                    <span className="text-[15px] leading-[1.65] text-ink/88">
                       {o}
                     </span>
                   </li>
@@ -295,16 +295,16 @@ export default function CaseStudy() {
           />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             <div className="md:col-span-8">
-              <p className="text-[16px] md:text-[17px] leading-[1.75] text-ink/80 max-w-2xl">
+              <p className="text-[16px] md:text-[17px] leading-[1.75] text-ink/88 max-w-2xl">
                 {project.discovery}
               </p>
             </div>
             <div className="md:col-span-4">
               <div className="border border-ink/10 rounded-2xl p-6 bg-paper/40">
-                <p className="label-eyebrow text-ink/45 mb-3">
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
                   Discovery notes
                 </p>
-                <ul className="flex flex-col gap-2 text-[14px] text-ink/70 leading-relaxed">
+                <ul className="flex flex-col gap-2 text-[14px] text-ink/80 leading-[1.65]">
                   <li>· User interviews</li>
                   <li>· Competitor audit</li>
                   <li>· Content inventory</li>
@@ -351,35 +351,35 @@ export default function CaseStudy() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             <div className="md:col-span-7 flex flex-col gap-10">
               <div>
-                <p className="label-eyebrow text-ink/45 mb-3">Typography</p>
-                <p className="text-[15px] md:text-[16px] leading-[1.7] text-ink/80">
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Typography</p>
+                <p className="text-[15px] md:text-[16px] leading-[1.75] text-ink/88">
                   {project.design.type}
                 </p>
               </div>
               <div>
-                <p className="label-eyebrow text-ink/45 mb-3">Colour palette</p>
-                <p className="text-[15px] md:text-[16px] leading-[1.7] text-ink/80">
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Colour palette</p>
+                <p className="text-[15px] md:text-[16px] leading-[1.75] text-ink/88">
                   {project.design.palette}
                 </p>
               </div>
               <div>
-                <p className="label-eyebrow text-ink/45 mb-3">
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
                   Design rationale
                 </p>
-                <p className="text-[15px] md:text-[16px] leading-[1.7] text-ink/80">
+                <p className="text-[15px] md:text-[16px] leading-[1.75] text-ink/88">
                   {project.design.rationale}
                 </p>
               </div>
             </div>
             <div className="md:col-span-5">
-              <p className="label-eyebrow text-ink/45 mb-3">Palette</p>
+              <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Palette</p>
               <div className="grid grid-cols-2 gap-3">
                 <Swatch label="Paper" tone="#f5f2ed" dark />
                 <Swatch label="Ink" tone="#2e3326" />
                 <Swatch label="Accent" tone="#8b7ea8" />
                 <Swatch label="Mauve" tone="#d6c9e3" dark />
               </div>
-              <p className="mt-4 text-[12.5px] text-ink/45 leading-relaxed">
+              <p className="mt-4 text-[12.5px] text-ink/55 leading-[1.65]">
                 A small, deliberate palette. The accent is reserved for CTAs
                 and the active state — it never decorates.
               </p>
@@ -438,13 +438,13 @@ export default function CaseStudy() {
                     key={m.label}
                     className="border border-ink/10 rounded-2xl p-5 md:p-6 bg-paper/40"
                   >
-                    <p className="label-eyebrow text-ink/45 mb-2">
+                    <p className="label-eyebrow text-[11.5px] text-ink/55 mb-2">
                       {m.label}
                     </p>
                     <p className="font-serif text-3xl md:text-4xl text-ink tracking-[-0.02em] leading-none mb-2">
                       {m.value}
                     </p>
-                    <p className="text-[13px] text-ink/55 leading-relaxed">
+                    <p className="text-[13px] text-ink/65 leading-[1.65]">
                       {m.note}
                     </p>
                   </li>
@@ -452,10 +452,10 @@ export default function CaseStudy() {
               </ul>
             </div>
             <div className="md:col-span-5">
-              <p className="label-eyebrow text-ink/45 mb-3">
+              <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
                 Lessons learned
               </p>
-              <p className="text-[15px] md:text-[16px] leading-[1.75] text-ink/80">
+              <p className="text-[15px] md:text-[16px] leading-[1.75] text-ink/88">
                 {project.results.lessons}
               </p>
             </div>
@@ -526,7 +526,7 @@ export default function CaseStudy() {
 
             {next ? (
               <div className="md:col-span-5">
-                <p className="label-eyebrow text-ink/45 mb-3">
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
                   Next case study
                 </p>
                 <TransitionLink
@@ -578,12 +578,12 @@ function DevBlock({ number, title, body }) {
   return (
     <div className="md:col-span-6 border-t border-ink/10 pt-6">
       <div className="flex items-baseline gap-3 mb-3">
-        <span className="label-eyebrow text-ink/40 w-8">{number}</span>
+        <span className="label-eyebrow text-[11.5px] text-ink/50 w-8">{number}</span>
         <h3 className="font-serif text-2xl md:text-3xl text-ink tracking-[-0.02em]">
           {title}
         </h3>
       </div>
-      <p className="text-[15px] leading-[1.7] text-ink/70 max-w-xl pl-11">
+      <p className="text-[15px] leading-[1.75] text-ink/82 max-w-xl pl-11">
         {body}
       </p>
     </div>

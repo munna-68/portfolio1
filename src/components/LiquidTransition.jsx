@@ -102,6 +102,8 @@ export default function LiquidTransitionProvider({ children }) {
   const [menuState, setMenuState] = useState('CLOSED')
   const [progress, setProgress] = useState(0)
   const [hoveredIndex, setHoveredIndex] = useState(null)
+  const [isPageWipe, setIsPageWipe] = useState(false)
+  const [navHoverReady, setNavHoverReady] = useState(false)
 
   const navigate = useNavigate()
   const { pathname } = useLocation()
@@ -129,6 +131,22 @@ export default function LiquidTransitionProvider({ children }) {
 
   useEffect(() => {
     menuStateRef.current = menuState
+  }, [menuState])
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => setNavHoverReady(true))
+      return undefined
+    }
+    const timer = window.setTimeout(() => setNavHoverReady(true), 300)
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    if (menuState === 'OPEN') {
+      setNavHoverReady(true)
+    }
   }, [menuState])
 
   const animateMenu = useCallback(
@@ -161,6 +179,7 @@ export default function LiquidTransitionProvider({ children }) {
         }
       } else if (current === 'CLOSING') {
         setMenuState('CLOSED')
+        setIsPageWipe(false)
       }
     },
     [navigate]
@@ -195,6 +214,7 @@ export default function LiquidTransitionProvider({ children }) {
       return
     }
     if (menuState === 'CLOSED' || menuState === 'CLOSING') {
+      setIsPageWipe(false)
       setProgress(0)
       setMenuState('OPENING')
     } else {
@@ -228,6 +248,7 @@ export default function LiquidTransitionProvider({ children }) {
         // Cover the screen first; swap + sweep off happens at the peak.
         pendingPathRef.current = targetPath
         isWipingPageRef.current = true
+        setIsPageWipe(true)
         setProgress(0)
         setMenuState('OPENING')
       }
@@ -238,9 +259,13 @@ export default function LiquidTransitionProvider({ children }) {
   const clipPathString = buildClipPath(menuState, progress)
   const isMenuVisible = menuState !== 'CLOSED'
 
+  const isMenuInteractive = menuState === 'OPEN' && navHoverReady
+  const showMenuChrome = !isPageWipe
+
   const contextValue = {
     menuState,
     isMenuVisible,
+    isPageWipe,
     toggleMenu,
     navigateTo,
   }
@@ -249,10 +274,10 @@ export default function LiquidTransitionProvider({ children }) {
     <TransitionContext.Provider value={contextValue}>
       {children}
 
-      {/* Curtain overlay — sits above page content, below the fixed header. */}
+      {/* Curtain overlay — full-screen wipe above all chrome (incl. header). */}
       <div
         id="liquid-curtain-menu"
-        className="fixed inset-0 bg-ink z-40"
+        className="fixed inset-0 bg-ink z-[60]"
         style={{
           clipPath: 'url(#liquid-curtain-clip)',
           WebkitClipPath: 'url(#liquid-curtain-clip)',
@@ -260,90 +285,95 @@ export default function LiquidTransitionProvider({ children }) {
         }}
         aria-hidden={!isMenuVisible}
       >
-        <div className="absolute inset-0 flex flex-col h-full">
-          {/* Spacer keeps menu body below the fixed header. */}
-          <div className="h-24 md:h-28 shrink-0 pointer-events-none" />
+        {showMenuChrome ? (
+          <div className="absolute inset-0 flex flex-col h-full">
+            {/* Spacer keeps menu body below the fixed header. */}
+            <div className="h-24 md:h-28 shrink-0 pointer-events-none" />
 
-          <div className="flex-1 flex flex-col px-[5vw] md:px-[8vw] justify-center max-w-8xl w-full mx-auto pb-12">
-            <nav
-              aria-label="Primary"
-              className="flex flex-col gap-1.5 md:gap-3 relative"
-            >
-              {NAV_ITEMS.map((item, index) => {
-                const isActive =
-                  item.end
-                    ? pathname === item.to
-                    : pathname === item.to ||
-                      pathname.startsWith(`${item.to}/`)
-                const isHovered = hoveredIndex === index
-                const showDot =
-                  isHovered || (hoveredIndex === null && isActive)
-                return (
-                  <div
-                    key={item.to}
-                    className="relative flex items-center group w-fit"
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                  >
-                    <span
-                      aria-hidden
-                      className={[
-                        'absolute -left-6 md:-left-8 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-accent transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
-                        showDot
-                          ? 'opacity-100 translate-x-0 scale-100'
-                          : 'opacity-0 -translate-x-3 scale-50',
-                      ].join(' ')}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => navigateTo(item.to)}
-                      tabIndex={isMenuVisible ? 0 : -1}
-                      aria-current={isActive ? 'page' : undefined}
-                      className={[
-                        'text-cream font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl',
-                        'tracking-[-0.04em] leading-[0.95] text-left',
-                        'transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left',
-                        'cursor-pointer',
-                        'focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-cream focus-visible:outline-offset-4',
-                        isHovered
-                          ? 'translate-x-4 italic font-normal opacity-100'
-                          : 'opacity-80 hover:opacity-100',
-                        isActive && !isHovered ? 'italic font-medium' : '',
-                      ].join(' ')}
+            <div className="flex-1 flex flex-col px-[5vw] md:px-[8vw] justify-center max-w-8xl w-full mx-auto pb-12">
+              <nav
+                aria-label="Primary"
+                className="flex flex-col gap-1.5 md:gap-3 relative"
+              >
+                {NAV_ITEMS.map((item, index) => {
+                  const isActive =
+                    item.end
+                      ? pathname === item.to
+                      : pathname === item.to ||
+                        pathname.startsWith(`${item.to}/`)
+                  const isHovered =
+                    isMenuInteractive && hoveredIndex === index
+                  const showDot =
+                    isHovered || (hoveredIndex === null && isActive)
+                  return (
+                    <div
+                      key={item.to}
+                      className="relative flex items-center group w-fit"
+                      onMouseEnter={() => {
+                        if (isMenuInteractive) setHoveredIndex(index)
+                      }}
+                      onMouseLeave={() => setHoveredIndex(null)}
                     >
-                      {item.label}
-                      {isActive && (
-                        <span
-                          aria-hidden
-                          className="text-accent italic font-normal"
-                        >
-                          .
-                        </span>
-                      )}
-                    </button>
-                  </div>
-                )
-              })}
-            </nav>
+                      <span
+                        aria-hidden
+                        className={[
+                          'absolute -left-6 md:-left-8 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-accent transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                          showDot
+                            ? 'opacity-100 translate-x-0 scale-100'
+                            : 'opacity-0 -translate-x-3 scale-50',
+                        ].join(' ')}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => navigateTo(item.to)}
+                        tabIndex={isMenuVisible ? 0 : -1}
+                        aria-current={isActive ? 'page' : undefined}
+                        className={[
+                          'text-cream font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl',
+                          'tracking-[-0.04em] leading-[0.95] text-left',
+                          'transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left',
+                          'cursor-pointer',
+                          'focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-cream focus-visible:outline-offset-4',
+                          isHovered
+                            ? 'translate-x-4 italic font-normal opacity-100'
+                            : 'opacity-80 hover:opacity-100',
+                          isActive && !isHovered ? 'italic font-medium' : '',
+                        ].join(' ')}
+                      >
+                        {item.label}
+                        {isActive && (
+                          <span
+                            aria-hidden
+                            className="text-accent italic font-normal"
+                          >
+                            .
+                          </span>
+                        )}
+                      </button>
+                    </div>
+                  )
+                })}
+              </nav>
 
-            <div className="mt-14 md:mt-20 flex flex-wrap gap-x-10 gap-y-3">
-              {MENU_FOOTER.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={
-                    link.href.startsWith('http') ? 'noreferrer' : undefined
-                  }
-                  tabIndex={isMenuVisible ? 0 : -1}
-                  className="label-eyebrow text-cream/45 hover:text-cream transition-colors duration-500"
-                >
-                  {link.label}
-                </a>
-              ))}
+              <div className="mt-14 md:mt-20 flex flex-wrap gap-x-10 gap-y-3">
+                {MENU_FOOTER.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={
+                      link.href.startsWith('http') ? 'noreferrer' : undefined
+                    }
+                    tabIndex={isMenuVisible ? 0 : -1}
+                    className="label-eyebrow text-cream/45 hover:text-cream transition-colors duration-500"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
       </div>
 
       {/* SVG clip definition — re-evaluated each animation frame. */}

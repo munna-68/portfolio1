@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { TransitionLink } from './LiquidTransition'
 import { projects } from '../data/projects'
 
 function ArrowIcon() {
@@ -45,29 +45,36 @@ function ExternalArrow() {
  */
 function ProjectActions({ to, liveUrl, repoUrl }) {
   return (
-    <div className="flex flex-col items-start gap-3">
-      <Link to={to} className="pointer-events-auto pill-link-solid">
+    <div className="flex flex-col items-stretch gap-2.5 w-full max-w-sm">
+      <TransitionLink
+        to={to}
+        className="pointer-events-auto pill-link-solid w-full justify-center"
+      >
         View case study <ArrowIcon />
-      </Link>
-      {liveUrl ? (
-        <a
-          href={liveUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="pointer-events-auto pill-link-large"
-        >
-          Live site <ExternalArrow />
-        </a>
-      ) : null}
-      {repoUrl ? (
-        <a
-          href={repoUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="pointer-events-auto pill-link"
-        >
-          GitHub <ExternalArrow />
-        </a>
+      </TransitionLink>
+      {liveUrl || repoUrl ? (
+        <div className="flex gap-2.5 w-full">
+          {liveUrl ? (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="pointer-events-auto pill-link-large flex-1 justify-center"
+            >
+              Live site <ExternalArrow />
+            </a>
+          ) : null}
+          {repoUrl ? (
+            <a
+              href={repoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="pointer-events-auto pill-link flex-1 justify-center"
+            >
+              GitHub <ExternalArrow />
+            </a>
+          ) : null}
+        </div>
       ) : null}
     </div>
   )
@@ -76,9 +83,9 @@ function ProjectActions({ to, liveUrl, repoUrl }) {
 function CtaButton({ children, to }) {
   if (to) {
     return (
-      <Link to={to} className="pointer-events-auto pill-link-solid">
+      <TransitionLink to={to} className="pointer-events-auto pill-link-solid">
         {children} <ArrowIcon />
-      </Link>
+      </TransitionLink>
     )
   }
   return (

@@ -105,15 +105,17 @@
 
 #media-container {
   position: absolute;
-  bottom: -15vh;
+  bottom: -18vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 58vw;
-  height: 44vh;
-  max-width: 1200px;
+  width: min(52vw, 560px);
+  aspect-ratio: 16 / 10;
+  height: auto;
+  max-height: 42vh;
   overflow: hidden;
   z-index: 10;
-  box-shadow: 0 35px 80px -20px rgba(46, 51, 38, 0.2);
+  border-radius: 1.25rem;
+  box-shadow: 0 40px 90px -25px rgba(46, 51, 38, 0.25);
   will-change: transform, width, height, left, bottom, border-radius;
 }
 
@@ -155,17 +157,15 @@
 
 /* Scroll indicator (Home) */
 .scroll-indicator {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
+  position: relative;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
   z-index: 40;
   pointer-events: none;
   opacity: 0;
+  margin: 0 auto;
 }
 .scroll-indicator .label {
   font-family: 'Space Mono', monospace;
