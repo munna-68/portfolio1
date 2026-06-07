@@ -127,9 +127,10 @@
     top: 43vh;
     bottom: auto;
     transform: translateX(-50%);
-    width: 88vw;
+    width: 66vw;
     max-width: 420px;
-    aspect-ratio: 16 / 7.5;
+    aspect-ratio: 1 / 1;
+    height: auto;
     border-radius: 1.5rem;
   }
 
@@ -149,15 +150,21 @@
   #info-viewport {
     left: 5vw;
     right: 5vw;
-    bottom: 6vh;
-    top: auto;
+    top: 50vh;
+    bottom: 2vh;
     transform: none;
     width: auto;
     max-width: none;
-    height: 22vh;
+    height: auto;
+  }
+
+  #info-viewport .project-info {
+    justify-content: flex-start;
+    gap: 1.25rem;
   }
 
   #hero-text-wrapper h1 {
+    font-size: clamp(1.75rem, 13vw, 2.75rem);
     max-width: 8ch;
   }
 
