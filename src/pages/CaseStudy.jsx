@@ -1,9 +1,9 @@
-import { useRef } from 'react'
-import { useParams, Navigate } from 'react-router-dom'
-import { TransitionLink } from '../components/LiquidTransition'
-import ProjectArt from '../components/ProjectArt'
-import { usePageEntrance } from '../hooks/usePageEntrance'
-import { getProject, getNextProject } from '../data/projects'
+import { useRef } from "react";
+import { useParams, Navigate } from "react-router-dom";
+import { TransitionLink } from "../components/LiquidTransition";
+import ProjectArt from "../components/ProjectArt";
+import { usePageEntrance } from "../hooks/usePageEntrance";
+import { getProject, getNextProject } from "../data/projects";
 
 function ArrowOut({ size = 12 }) {
   return (
@@ -21,7 +21,7 @@ function ArrowOut({ size = 12 }) {
         d="M7 17L17 7M9 7h8v8"
       />
     </svg>
-  )
+  );
 }
 
 function ArrowRight() {
@@ -39,7 +39,7 @@ function ArrowRight() {
         d="M14 5l7 7m0 0l-7 7m7-7H3"
       />
     </svg>
-  )
+  );
 }
 
 function SectionHeading({ eyebrow, title, lead }) {
@@ -66,7 +66,7 @@ function SectionHeading({ eyebrow, title, lead }) {
         </p>
       ) : null}
     </div>
-  )
+  );
 }
 
 function GalleryTile({ label, kind }) {
@@ -78,16 +78,16 @@ function GalleryTile({ label, kind }) {
         className="absolute inset-0"
         style={{
           background:
-            kind === 'mobile'
-              ? 'radial-gradient(140% 100% at 50% 0%, #efece4 0%, #d8d2c2 100%)'
-              : 'radial-gradient(140% 100% at 30% 30%, #efece4 0%, #d8d2c2 100%)',
+            kind === "mobile"
+              ? "radial-gradient(140% 100% at 50% 0%, #efece4 0%, #d8d2c2 100%)"
+              : "radial-gradient(140% 100% at 30% 30%, #efece4 0%, #d8d2c2 100%)",
         }}
       />
-      {kind === 'mobile' ? (
+      {kind === "mobile" ? (
         <div className="absolute inset-0 flex items-center justify-center">
           <div
             className="w-[26%] h-[78%] rounded-[28px] border border-ink/15 bg-cream"
-            style={{ boxShadow: '0 30px 60px -20px rgba(46,51,38,0.25)' }}
+            style={{ boxShadow: "0 30px 60px -20px rgba(46,51,38,0.25)" }}
           />
         </div>
       ) : (
@@ -108,7 +108,7 @@ function GalleryTile({ label, kind }) {
         <span>Placeholder</span>
       </figcaption>
     </figure>
-  )
+  );
 }
 
 function Stack({ items }) {
@@ -123,7 +123,7 @@ function Stack({ items }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 function MetaRow({ label, value }) {
@@ -134,21 +134,21 @@ function MetaRow({ label, value }) {
         {value}
       </span>
     </div>
-  )
+  );
 }
 
 export default function CaseStudy() {
-  const rootRef = useRef(null)
-  const { slug } = useParams()
-  const project = getProject(slug)
+  const rootRef = useRef(null);
+  const { slug } = useParams();
+  const project = getProject(slug);
 
-  usePageEntrance(rootRef)
+  usePageEntrance(rootRef);
 
   if (!project) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/" replace />;
   }
 
-  const next = getNextProject(slug)
+  const next = getNextProject(slug);
 
   return (
     <main
@@ -210,7 +210,9 @@ export default function CaseStudy() {
                 <MetaRow label="Category" value={project.category} />
               </div>
               <div className="mt-6">
-                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Stack</p>
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
+                  Stack
+                </p>
                 <Stack items={project.stack} />
               </div>
               <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
@@ -245,13 +247,17 @@ export default function CaseStudy() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             <div className="md:col-span-7 flex flex-col gap-8">
               <div>
-                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-2">Goal</p>
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-2">
+                  Goal
+                </p>
                 <p className="text-[16px] md:text-[17px] leading-[1.75] text-ink/90">
                   {project.overview.goal}
                 </p>
               </div>
               <div>
-                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-2">Audience</p>
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-2">
+                  Audience
+                </p>
                 <p className="text-[16px] md:text-[17px] leading-[1.75] text-ink/90">
                   {project.overview.audience}
                 </p>
@@ -266,7 +272,9 @@ export default function CaseStudy() {
               </div>
             </div>
             <div className="md:col-span-5">
-              <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Objectives</p>
+              <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
+                Objectives
+              </p>
               <ul className="border-t border-ink/10">
                 {project.overview.objectives.map((o, i) => (
                   <li
@@ -324,17 +332,17 @@ export default function CaseStudy() {
           />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
             {[
-              { label: 'Wireframes — low fidelity' },
-              { label: 'User flow diagrams' },
-              { label: 'Mid-fidelity screens' },
-              { label: 'High-fidelity Figma frames' },
-              { label: 'Component library' },
-              { label: 'Design iterations' },
+              { label: "Wireframes — low fidelity" },
+              { label: "User flow diagrams" },
+              { label: "Mid-fidelity screens" },
+              { label: "High-fidelity Figma frames" },
+              { label: "Component library" },
+              { label: "Design iterations" },
             ].map((s, i) => (
               <div key={i} className="md:col-span-4">
                 <GalleryTile
                   label={s.label}
-                  kind={i % 4 === 1 ? 'mobile' : 'desktop'}
+                  kind={i % 4 === 1 ? "mobile" : "desktop"}
                 />
               </div>
             ))}
@@ -351,13 +359,17 @@ export default function CaseStudy() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             <div className="md:col-span-7 flex flex-col gap-10">
               <div>
-                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Typography</p>
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
+                  Typography
+                </p>
                 <p className="text-[15px] md:text-[16px] leading-[1.75] text-ink/88">
                   {project.design.type}
                 </p>
               </div>
               <div>
-                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Colour palette</p>
+                <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
+                  Colour palette
+                </p>
                 <p className="text-[15px] md:text-[16px] leading-[1.75] text-ink/88">
                   {project.design.palette}
                 </p>
@@ -372,7 +384,9 @@ export default function CaseStudy() {
               </div>
             </div>
             <div className="md:col-span-5">
-              <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Palette</p>
+              <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">
+                Palette
+              </p>
               <div className="grid grid-cols-2 gap-3">
                 <Swatch label="Paper" tone="#f5f2ed" dark />
                 <Swatch label="Ink" tone="#2e3326" />
@@ -380,8 +394,8 @@ export default function CaseStudy() {
                 <Swatch label="Mauve" tone="#d6c9e3" dark />
               </div>
               <p className="mt-4 text-[12.5px] text-ink/55 leading-[1.65]">
-                A small, deliberate palette. The accent is reserved for CTAs
-                and the active state — it never decorates.
+                A small, deliberate palette. The accent is reserved for CTAs and
+                the active state — it never decorates.
               </p>
             </div>
           </div>
@@ -474,9 +488,9 @@ export default function CaseStudy() {
               <div
                 key={i}
                 className={[
-                  'md:col-span-6',
-                  i === 0 ? 'md:col-span-12' : '',
-                ].join(' ')}
+                  "md:col-span-6",
+                  i === 0 ? "md:col-span-12" : "",
+                ].join(" ")}
               >
                 <GalleryTile label={g.label} kind={g.kind} />
               </div>
@@ -518,7 +532,10 @@ export default function CaseStudy() {
                 >
                   GitHub repository <ArrowOut size={11} />
                 </a>
-                <TransitionLink to="/" className="pill-link w-full sm:w-auto justify-center">
+                <TransitionLink
+                  to="/"
+                  className="pill-link w-full sm:w-auto justify-center"
+                >
                   Back to work <ArrowRight />
                 </TransitionLink>
               </div>
@@ -547,16 +564,14 @@ export default function CaseStudy() {
         </section>
 
         <footer className="max-w-8xl mx-auto w-full mt-12 pt-8 border-t border-ink/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-          <p className="label-eyebrow text-ink/45">
-            © 2026 Munna · @munna-68
-          </p>
+          <p className="label-eyebrow text-ink/45">© 2026 Munna · @munna-68</p>
           <p className="label-eyebrow text-ink/35">
             Built with React, Vite, GSAP, and a notebook
           </p>
         </footer>
       </div>
     </main>
-  )
+  );
 }
 
 function Swatch({ label, tone, dark = false }) {
@@ -571,14 +586,16 @@ function Swatch({ label, tone, dark = false }) {
         <span className="label-eyebrow text-ink/40">{tone}</span>
       </div>
     </div>
-  )
+  );
 }
 
 function DevBlock({ number, title, body }) {
   return (
     <div className="md:col-span-6 border-t border-ink/10 pt-6">
       <div className="flex items-baseline gap-3 mb-3">
-        <span className="label-eyebrow text-[11.5px] text-ink/50 w-8">{number}</span>
+        <span className="label-eyebrow text-[11.5px] text-ink/50 w-8">
+          {number}
+        </span>
         <h3 className="font-serif text-2xl md:text-3xl text-ink tracking-[-0.02em]">
           {title}
         </h3>
@@ -587,5 +604,5 @@ function DevBlock({ number, title, body }) {
         {body}
       </p>
     </div>
-  )
+  );
 }

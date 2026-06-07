@@ -1,5 +1,5 @@
-import { TransitionLink } from './LiquidTransition'
-import ProjectArt from './ProjectArt'
+import { TransitionLink } from "./LiquidTransition";
+import ProjectArt from "./ProjectArt";
 
 function ArrowIcon({ size = 12 }) {
   return (
@@ -18,7 +18,7 @@ function ArrowIcon({ size = 12 }) {
         d="M14 5l7 7m0 0l-7 7m7-7H3"
       />
     </svg>
-  )
+  );
 }
 
 function ArrowOut({ size = 11 }) {
@@ -37,7 +37,7 @@ function ArrowOut({ size = 11 }) {
         d="M7 17L17 7M9 7h8v8"
       />
     </svg>
-  )
+  );
 }
 
 /*
@@ -79,7 +79,7 @@ function ProjectLinks({ slug, liveUrl, repoUrl }) {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
 export default function ProjectCard({ project }) {
@@ -107,9 +107,7 @@ export default function ProjectCard({ project }) {
       {/* Meta + CTAs + Scope — matches the /work InfoPanels structure */}
       <div className="md:col-span-5 flex flex-col">
         <div className="flex items-center gap-4 text-[10.5px] font-mono tracking-widest-2 uppercase text-ink/55 mb-4 md:mb-6">
-          <span className="text-lg font-serif text-ink">
-            {project.index}
-          </span>
+          <span className="text-lg font-serif text-ink">{project.index}</span>
           <span>/</span>
           <span className="opacity-70">{project.total}</span>
         </div>
@@ -139,5 +137,5 @@ export default function ProjectCard({ project }) {
         </div>
       </div>
     </article>
-  )
+  );
 }

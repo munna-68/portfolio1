@@ -1,5 +1,5 @@
-import { TransitionLink } from './LiquidTransition'
-import { projects } from '../data/projects'
+import { TransitionLink } from "./LiquidTransition";
+import { projects } from "../data/projects";
 
 function ArrowIcon() {
   return (
@@ -16,7 +16,7 @@ function ArrowIcon() {
         d="M14 5l7 7m0 0l-7 7m7-7H3"
       />
     </svg>
-  )
+  );
 }
 
 function ExternalArrow() {
@@ -34,7 +34,7 @@ function ExternalArrow() {
         d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
       />
     </svg>
-  )
+  );
 }
 
 /**
@@ -77,7 +77,7 @@ function ProjectActions({ to, liveUrl, repoUrl }) {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
 function CtaButton({ children, to }) {
@@ -86,7 +86,7 @@ function CtaButton({ children, to }) {
       <TransitionLink to={to} className="pointer-events-auto pill-link-solid">
         {children} <ArrowIcon />
       </TransitionLink>
-    )
+    );
   }
   return (
     <button
@@ -95,7 +95,7 @@ function CtaButton({ children, to }) {
     >
       {children}
     </button>
-  )
+  );
 }
 
 export default function InfoPanels() {
@@ -140,5 +140,5 @@ export default function InfoPanels() {
         </div>
       ))}
     </div>
-  )
+  );
 }

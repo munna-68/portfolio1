@@ -1,104 +1,104 @@
-import { useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 export function useScrollTimeline(rootRef) {
   useEffect(() => {
-    const root = rootRef?.current ?? undefined
+    const root = rootRef?.current ?? undefined;
     const ctx = gsap.context(() => {
-      const isDesktop = window.matchMedia('(min-width: 768px)').matches
-      const dynamicGlow = document.querySelector('#dynamic-glow')
+      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+      const dynamicGlow = document.querySelector("#dynamic-glow");
 
       const heroShift = isDesktop
-        ? { y: '-25vh', opacity: 0, scale: 0.55, duration: 2.5 }
-        : { y: '-18vh', opacity: 0, scale: 0.68, duration: 2.0 }
+        ? { y: "-25vh", opacity: 0, scale: 0.55, duration: 2.5 }
+        : { y: "-18vh", opacity: 0, scale: 0.68, duration: 2.0 };
       const topbarShift = isDesktop
         ? { y: -100, opacity: 0, duration: 2.0 }
-        : { y: -70, opacity: 0, duration: 1.8 }
+        : { y: -70, opacity: 0, duration: 1.8 };
       const mediaTarget = isDesktop
         ? {
-            left: '3vw',
+            left: "3vw",
             xPercent: 0,
             x: 0,
-            top: '10vh',
-            bottom: 'auto',
+            top: "10vh",
+            bottom: "auto",
             yPercent: 0,
-            width: '48vw',
-            height: '80vh',
-            borderRadius: '1.25rem',
+            width: "48vw",
+            height: "80vh",
+            borderRadius: "1.25rem",
             duration: 3.0,
           }
         : {
-            left: '50%',
+            left: "50%",
             xPercent: -50,
             x: 0,
-            top: '22vh',
-            bottom: 'auto',
+            top: "22vh",
+            bottom: "auto",
             yPercent: 0,
-            width: '92vw',
-            height: '24vh',
-            borderRadius: '1.5rem',
+            width: "92vw",
+            height: "24vh",
+            borderRadius: "1.5rem",
             duration: 2.6,
-          }
+          };
 
       // Scope-aware entrance: only animate text-char-slide elements inside
       // the root (if provided) so the surrounding landing-page sections
       // are not picked up by the entrance reveal.
       // Entrance animation (runs once on mount)
       const textSlides = root
-        ? root.querySelectorAll('.text-char-slide')
-        : document.querySelectorAll('.text-char-slide')
-      if (!textSlides.length) return
+        ? root.querySelectorAll(".text-char-slide")
+        : document.querySelectorAll(".text-char-slide");
+      if (!textSlides.length) return;
 
       gsap
         .timeline()
         .to(textSlides, {
-          y: '0%',
+          y: "0%",
           duration: 1.8,
           stagger: 0.15,
-          ease: 'power4.out',
+          ease: "power4.out",
         })
         .from(
-          '#media-container',
+          "#media-container",
           {
             y: 100,
             opacity: 0,
             duration: 2.0,
-            ease: 'power4.out',
+            ease: "power4.out",
           },
-          '-=1.2'
-        )
+          "-=1.2",
+        );
 
       // Kick off autoplay on all videos (some browsers block it without gesture)
-      document.querySelectorAll('video').forEach((v) => {
-        const p = v.play()
-        if (p && typeof p.catch === 'function') p.catch(() => {})
-      })
+      document.querySelectorAll("video").forEach((v) => {
+        const p = v.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      });
 
       // Master scroll-driven timeline
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: '#scroll-space',
-          start: 'top top',
-          end: 'bottom bottom',
+          trigger: "#scroll-space",
+          start: "top top",
+          end: "bottom bottom",
           scrub: 2.5,
           invalidateOnRefresh: true,
         },
-      })
+      });
 
       // STEP 1: Hero -> left-dock split layout
-      tl.addLabel('morphStart', 0)
+      tl.addLabel("morphStart", 0)
         .to(
-          '#hero-topbar',
-          { ...topbarShift, ease: 'power3.inOut' },
-          'morphStart'
+          "#hero-topbar",
+          { ...topbarShift, ease: "power3.inOut" },
+          "morphStart",
         )
         .to(
-          '#hero-text-wrapper',
-          { ...heroShift, ease: 'power3.inOut' },
-          'morphStart'
+          "#hero-text-wrapper",
+          { ...heroShift, ease: "power3.inOut" },
+          "morphStart",
         )
         .to(
           dynamicGlow,
@@ -107,116 +107,128 @@ export function useScrollTimeline(rootRef) {
             xPercent: -35,
             yPercent: -10,
             duration: 2.5,
-            ease: 'power3.inOut',
+            ease: "power3.inOut",
           },
-          'morphStart'
+          "morphStart",
         )
         .to(
-          '#media-container',
-          { ...mediaTarget, ease: 'power3.inOut' },
-          'morphStart'
+          "#media-container",
+          { ...mediaTarget, ease: "power3.inOut" },
+          "morphStart",
         )
         .to(
-          '#info-0',
-          { y: 0, opacity: 1, duration: 2.0, ease: 'power3.out' },
-          'morphStart+=1.5'
-        )
+          "#info-0",
+          { y: 0, opacity: 1, duration: 2.0, ease: "power3.out" },
+          "morphStart+=1.5",
+        );
 
-      tl.to({}, { duration: 1.5 })
+      tl.to({}, { duration: 1.5 });
 
       // STEP 2: Project 02
-      tl.addLabel('project2', '+=0')
+      tl.addLabel("project2", "+=0")
         .to(
-          '#info-0',
-          { y: '-100px', opacity: 0, duration: 1.5, ease: 'power3.inOut' },
-          'project2'
+          "#info-0",
+          { y: "-100px", opacity: 0, duration: 1.5, ease: "power3.inOut" },
+          "project2",
         )
         .to(
-          '#media-2',
-          { clipPath: 'inset(0% 0% 0% 0%)', duration: 2.5, ease: 'power3.inOut' },
-          'project2'
+          "#media-2",
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 2.5,
+            ease: "power3.inOut",
+          },
+          "project2",
         )
         .to(
-          '#media-container',
+          "#media-container",
           {
             scale: 0.96,
             yoyo: true,
             repeat: 1,
             duration: 1.25,
-            ease: 'power2.inOut',
+            ease: "power2.inOut",
           },
-          'project2'
+          "project2",
         )
         .to(
-          '#info-1',
-          { y: 0, opacity: 1, duration: 2.0, ease: 'power3.out' },
-          'project2+=0.8'
-        )
+          "#info-1",
+          { y: 0, opacity: 1, duration: 2.0, ease: "power3.out" },
+          "project2+=0.8",
+        );
 
-      tl.to({}, { duration: 1.5 })
+      tl.to({}, { duration: 1.5 });
 
       // STEP 3: Project 03
-      tl.addLabel('project3', '+=0')
+      tl.addLabel("project3", "+=0")
         .to(
-          '#info-1',
-          { y: '-100px', opacity: 0, duration: 1.5, ease: 'power3.inOut' },
-          'project3'
+          "#info-1",
+          { y: "-100px", opacity: 0, duration: 1.5, ease: "power3.inOut" },
+          "project3",
         )
         .to(
-          '#media-3',
-          { clipPath: 'inset(0% 0% 0% 0%)', duration: 2.5, ease: 'power3.inOut' },
-          'project3'
+          "#media-3",
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 2.5,
+            ease: "power3.inOut",
+          },
+          "project3",
         )
         .to(
-          '#media-container',
+          "#media-container",
           {
             scale: 0.96,
             yoyo: true,
             repeat: 1,
             duration: 1.25,
-            ease: 'power2.inOut',
+            ease: "power2.inOut",
           },
-          'project3'
+          "project3",
         )
         .to(
-          '#info-2',
-          { y: 0, opacity: 1, duration: 2.0, ease: 'power3.out' },
-          'project3+=0.8'
-        )
+          "#info-2",
+          { y: 0, opacity: 1, duration: 2.0, ease: "power3.out" },
+          "project3+=0.8",
+        );
 
-      tl.to({}, { duration: 1.5 })
+      tl.to({}, { duration: 1.5 });
 
       // STEP 4: Explore Ecosystem
-      tl.addLabel('explore', '+=0')
+      tl.addLabel("explore", "+=0")
         .to(
-          '#info-2',
-          { y: '-100px', opacity: 0, duration: 1.5, ease: 'power3.inOut' },
-          'explore'
+          "#info-2",
+          { y: "-100px", opacity: 0, duration: 1.5, ease: "power3.inOut" },
+          "explore",
         )
         .to(
-          '#media-4',
-          { clipPath: 'inset(0% 0% 0% 0%)', duration: 2.5, ease: 'power3.inOut' },
-          'explore'
-        )
-        .to(
-          '#media-container',
+          "#media-4",
           {
-            borderRadius: '50%',
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 2.5,
+            ease: "power3.inOut",
+          },
+          "explore",
+        )
+        .to(
+          "#media-container",
+          {
+            borderRadius: "50%",
             scale: 0.95,
             duration: 2.0,
-            ease: 'power3.inOut',
+            ease: "power3.inOut",
           },
-          'explore'
+          "explore",
         )
         .to(
-          '#info-explore',
-          { y: 0, opacity: 1, duration: 2.0, ease: 'power3.out' },
-          'explore+=0.8'
-        )
+          "#info-explore",
+          { y: 0, opacity: 1, duration: 2.0, ease: "power3.out" },
+          "explore+=0.8",
+        );
 
-      tl.to({}, { duration: 1.5 })
-    })
+      tl.to({}, { duration: 1.5 });
+    });
 
-    return () => ctx.revert() // kills all tweens + ScrollTriggers created inside
-  }, [rootRef])
+    return () => ctx.revert(); // kills all tweens + ScrollTriggers created inside
+  }, [rootRef]);
 }
