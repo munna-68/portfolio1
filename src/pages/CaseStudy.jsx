@@ -159,14 +159,14 @@ export default function CaseStudy() {
         {/* HERO */}
         <section className="pt-8 md:pt-12 pb-16 md:pb-24">
           {/* Top meta row */}
-          <div className="flex items-center gap-4 mb-10 md:mb-14">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-10 md:mb-14">
             <TransitionLink
               to="/"
               className="label-eyebrow text-ink/55 hover:text-ink transition-colors duration-300 inline-flex items-center gap-2"
             >
               <span aria-hidden>←</span> Back to work
             </TransitionLink>
-            <span className="flex-1 h-px bg-ink/10" />
+            <span className="hidden sm:block flex-1 h-px bg-ink/10" />
             <span className="label-eyebrow text-ink/45">
               {project.index} / {project.total} · {project.category}
             </span>
@@ -213,12 +213,12 @@ export default function CaseStudy() {
                 <p className="label-eyebrow text-[11.5px] text-ink/55 mb-3">Stack</p>
                 <Stack items={project.stack} />
               </div>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="pill-link-solid"
+                  className="pill-link-solid w-full sm:w-auto justify-center"
                 >
                   Live site <ArrowOut size={11} />
                 </a>
@@ -226,7 +226,7 @@ export default function CaseStudy() {
                   href={project.repoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="pill-link"
+                  className="pill-link w-full sm:w-auto justify-center"
                 >
                   GitHub <ArrowOut size={11} />
                 </a>
@@ -501,12 +501,12 @@ export default function CaseStudy() {
                   </span>
                 </span>
               </h2>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="pill-link-solid"
+                  className="pill-link-solid w-full sm:w-auto justify-center"
                 >
                   Live site <ArrowOut size={11} />
                 </a>
@@ -514,11 +514,11 @@ export default function CaseStudy() {
                   href={project.repoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="pill-link"
+                  className="pill-link w-full sm:w-auto justify-center"
                 >
                   GitHub repository <ArrowOut size={11} />
                 </a>
-                <TransitionLink to="/" className="pill-link">
+                <TransitionLink to="/" className="pill-link w-full sm:w-auto justify-center">
                   Back to work <ArrowRight />
                 </TransitionLink>
               </div>

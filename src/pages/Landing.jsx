@@ -130,23 +130,23 @@ export default function Landing() {
         <div
           ref={scrollRootRef}
           id="scroll-space"
-          className="w-full relative h-[800vh]"
+          className="w-full relative h-[620vh] md:h-[800vh]"
         >
           <div
             id="pinned-viewport"
-            className="sticky top-0 left-0 w-full h-screen overflow-hidden"
+            className="sticky top-0 left-0 w-full h-[100svh] md:h-screen overflow-hidden"
           >
             {/* Distributed top bar — logo · role · label · menu.
                 Replaces the fixed <Header /> for the hero view. */}
             <div
               id="hero-topbar"
-              className="absolute top-0 left-0 w-full px-[5vw] md:px-[8vw] py-6 md:py-8 z-40 pointer-events-none flex justify-between items-start gap-6"
+              className="absolute top-0 left-0 w-full px-[5vw] md:px-[8vw] py-4 md:py-8 z-40 pointer-events-none flex justify-between items-start gap-4 md:gap-6"
             >
               <div className="pointer-events-auto leading-none">
-                <div className="font-serif text-2xl md:text-[1.75rem] font-medium tracking-tight text-ink leading-none">
+                <div className="font-serif text-xl md:text-[1.75rem] font-medium tracking-tight text-ink leading-none">
                   munna
                 </div>
-                <div className="font-serif text-2xl md:text-[1.75rem] font-medium italic text-accent leading-none mt-0.5">
+                <div className="font-serif text-xl md:text-[1.75rem] font-medium italic text-accent leading-none mt-0.5">
                   .
                 </div>
               </div>
@@ -162,7 +162,7 @@ export default function Landing() {
               <button
                 type="button"
                 onClick={toggleMenu}
-                className="pointer-events-auto flex items-center gap-3 md:gap-4 mt-1.5 group"
+                className="pointer-events-auto flex items-center gap-2.5 md:gap-4 mt-1.5 group"
                 aria-label={isMenuVisible ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMenuVisible}
               >
@@ -198,11 +198,11 @@ export default function Landing() {
             {/* Centered hero text with soft gradient backdrop. */}
             <div
               id="hero-text-wrapper"
-              className="absolute inset-0 flex flex-col items-center justify-center text-center px-[5vw] z-20 pointer-events-none"
+              className="absolute inset-0 flex flex-col items-center justify-center text-center px-[5vw] md:px-[5vw] z-20 pointer-events-none"
             >
               <div
                 aria-hidden
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[72vw] max-w-[920px] h-[58vh] pointer-events-none"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] md:w-[72vw] max-w-[920px] h-[46vh] md:h-[58vh] pointer-events-none"
                 style={{
                   background:
                     'radial-gradient(ellipse at center, rgba(179,158,210,0.45) 0%, rgba(154,196,224,0.32) 28%, rgba(214,175,200,0.24) 48%, rgba(245,230,210,0.12) 64%, transparent 78%)',
@@ -218,7 +218,7 @@ export default function Landing() {
                 </span>
               </span>
 
-              <h1 className="relative font-serif text-[16vw] sm:text-[5.5rem] md:text-[8rem] lg:text-[10.5rem] font-medium tracking-[-0.04em] text-ink leading-[0.9] mb-6 w-full max-w-6xl">
+              <h1 className="relative font-serif text-[18vw] sm:text-[5.5rem] md:text-[8rem] lg:text-[10.5rem] font-medium tracking-[-0.04em] text-ink leading-[0.9] mb-5 md:mb-6 w-full max-w-6xl">
                 <span className="text-line-mask inline-block">
                   <span className="text-char-slide">
                     Selected work
@@ -227,7 +227,7 @@ export default function Landing() {
                 </span>
               </h1>
 
-              <p className="relative max-w-xl text-[13px] md:text-[15.5px] text-ink/75 font-medium leading-relaxed tracking-wide mb-8">
+              <p className="relative max-w-xl text-[12px] sm:text-[13px] md:text-[15.5px] text-ink/75 font-medium leading-relaxed tracking-wide mb-7 md:mb-8">
                 <span className="text-line-mask">
                   <span className="text-char-slide">
                     An independent web developer crafting considered digital

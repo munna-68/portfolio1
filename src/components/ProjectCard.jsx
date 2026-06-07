@@ -47,7 +47,7 @@ function ArrowOut({ size = 11 }) {
 */
 function ProjectLinks({ slug, liveUrl, repoUrl }) {
   return (
-    <div className="flex flex-col items-stretch gap-2.5 w-full max-w-sm">
+    <div className="flex flex-col items-stretch gap-2.5 w-full max-w-none sm:max-w-sm">
       <TransitionLink
         to={`/work/${slug}`}
         className="pointer-events-auto pill-link-solid w-full justify-center"
@@ -85,14 +85,14 @@ function ProjectLinks({ slug, liveUrl, repoUrl }) {
 export default function ProjectCard({ project }) {
   return (
     <article
-      className="group relative grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start"
+      className="group relative grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-10 items-start"
       data-project-card
     >
       {/* Thumbnail */}
       <div className="md:col-span-7">
         <TransitionLink
           to={`/work/${project.slug}`}
-          className="block rounded-3xl overflow-hidden aspect-[3/4] md:aspect-[4/5] focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-ink focus-visible:outline-offset-4 [&_.page-media]:!aspect-auto [&_.page-media]:h-full [&_.page-media]:w-full"
+          className="block rounded-3xl overflow-hidden aspect-[16/11] sm:aspect-[4/3] md:aspect-[4/5] focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-ink focus-visible:outline-offset-4 [&_.page-media]:!aspect-auto [&_.page-media]:h-full [&_.page-media]:w-full"
           aria-label={`Open case study — ${project.title}`}
         >
           <ProjectArt
@@ -106,7 +106,7 @@ export default function ProjectCard({ project }) {
 
       {/* Meta + CTAs + Scope — matches the /work InfoPanels structure */}
       <div className="md:col-span-5 flex flex-col">
-        <div className="flex items-center gap-4 text-[10.5px] font-mono tracking-widest-2 uppercase text-ink/55 mb-6">
+        <div className="flex items-center gap-4 text-[10.5px] font-mono tracking-widest-2 uppercase text-ink/55 mb-4 md:mb-6">
           <span className="text-lg font-serif text-ink">
             {project.index}
           </span>
@@ -114,7 +114,7 @@ export default function ProjectCard({ project }) {
           <span className="opacity-70">{project.total}</span>
         </div>
 
-        <h3 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[0.98] text-ink mb-6">
+        <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[0.98] text-ink mb-5 md:mb-6 max-w-[12ch]">
           <span className="text-line-mask">
             <span className="text-char-slide">
               {project.title}
@@ -129,7 +129,7 @@ export default function ProjectCard({ project }) {
           repoUrl={project.repoUrl}
         />
 
-        <div className="mt-8 pt-6 border-t border-ink/10">
+        <div className="mt-6 md:mt-8 pt-5 md:pt-6 border-t border-ink/10">
           <p className="text-[10.5px] font-mono tracking-widest-2 uppercase text-ink/45 mb-2">
             {project.scopeLabel}
           </p>

@@ -8,6 +8,41 @@ export function useScrollTimeline(rootRef) {
   useEffect(() => {
     const root = rootRef?.current ?? undefined
     const ctx = gsap.context(() => {
+      const isDesktop = window.matchMedia('(min-width: 768px)').matches
+      const dynamicGlow = document.querySelector('#dynamic-glow')
+
+      const heroShift = isDesktop
+        ? { y: '-25vh', opacity: 0, scale: 0.55, duration: 2.5 }
+        : { y: '-18vh', opacity: 0, scale: 0.68, duration: 2.0 }
+      const topbarShift = isDesktop
+        ? { y: -100, opacity: 0, duration: 2.0 }
+        : { y: -70, opacity: 0, duration: 1.8 }
+      const mediaTarget = isDesktop
+        ? {
+            left: '3vw',
+            xPercent: 0,
+            x: 0,
+            top: '10vh',
+            bottom: 'auto',
+            yPercent: 0,
+            width: '48vw',
+            height: '80vh',
+            borderRadius: '1.25rem',
+            duration: 3.0,
+          }
+        : {
+            left: '50%',
+            xPercent: -50,
+            x: 0,
+            top: '22vh',
+            bottom: 'auto',
+            yPercent: 0,
+            width: '92vw',
+            height: '24vh',
+            borderRadius: '1.5rem',
+            duration: 2.6,
+          }
+
       // Scope-aware entrance: only animate text-char-slide elements inside
       // the root (if provided) so the surrounding landing-page sections
       // are not picked up by the entrance reveal.
@@ -15,6 +50,7 @@ export function useScrollTimeline(rootRef) {
       const textSlides = root
         ? root.querySelectorAll('.text-char-slide')
         : document.querySelectorAll('.text-char-slide')
+      if (!textSlides.length) return
 
       gsap
         .timeline()
@@ -56,22 +92,16 @@ export function useScrollTimeline(rootRef) {
       tl.addLabel('morphStart', 0)
         .to(
           '#hero-topbar',
-          { y: -100, opacity: 0, duration: 2.0, ease: 'power3.inOut' },
+          { ...topbarShift, ease: 'power3.inOut' },
           'morphStart'
         )
         .to(
           '#hero-text-wrapper',
-          {
-            y: '-25vh',
-            opacity: 0,
-            scale: 0.55,
-            duration: 2.5,
-            ease: 'power3.inOut',
-          },
+          { ...heroShift, ease: 'power3.inOut' },
           'morphStart'
         )
         .to(
-          '#dynamic-glow',
+          dynamicGlow,
           {
             scale: 0.8,
             xPercent: -35,
@@ -83,19 +113,7 @@ export function useScrollTimeline(rootRef) {
         )
         .to(
           '#media-container',
-          {
-            left: '3vw',
-            xPercent: 0,
-            x: 0,
-            top: '10vh',
-            bottom: 'auto',
-            yPercent: 0,
-            width: '48vw',
-            height: '80vh',
-            borderRadius: '1.25rem',
-            duration: 3.0,
-            ease: 'power3.inOut',
-          },
+          { ...mediaTarget, ease: 'power3.inOut' },
           'morphStart'
         )
         .to(

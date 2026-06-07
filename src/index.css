@@ -118,6 +118,58 @@
   will-change: transform, width, height, left, top, bottom, border-radius;
 }
 
+@media (max-width: 767px) {
+  #media-container {
+    position: absolute;
+    left: 50%;
+    top: 43vh;
+    bottom: auto;
+    transform: translateX(-50%);
+    width: 88vw;
+    max-width: 420px;
+    aspect-ratio: 16 / 7.5;
+    border-radius: 1.5rem;
+  }
+
+  #hero-topbar {
+    padding-top: 1rem;
+    padding-bottom: 0.25rem;
+  }
+
+  #hero-text-wrapper {
+    top: 11vh;
+    inset: auto 0 auto 0;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+
+  #info-viewport {
+    left: 5vw;
+    right: 5vw;
+    bottom: 6vh;
+    top: auto;
+    transform: none;
+    width: auto;
+    max-width: none;
+    height: 22vh;
+  }
+
+  #hero-text-wrapper h1 {
+    max-width: 8ch;
+  }
+
+  #hero-text-wrapper p {
+    max-width: 22rem;
+  }
+
+  .scroll-indicator {
+    transform: scale(0.88);
+    transform-origin: center bottom;
+    margin-left: 0;
+  }
+}
+
 .media-slide {
   position: absolute;
   top: 0;

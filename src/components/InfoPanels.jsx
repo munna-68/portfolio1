@@ -45,7 +45,7 @@ function ExternalArrow() {
  */
 function ProjectActions({ to, liveUrl, repoUrl }) {
   return (
-    <div className="flex flex-col items-stretch gap-2.5 w-full max-w-sm">
+    <div className="flex flex-col items-stretch gap-2.5 w-full max-w-[18rem] sm:max-w-sm">
       <TransitionLink
         to={to}
         className="pointer-events-auto pill-link-solid w-full justify-center"
@@ -102,7 +102,7 @@ export default function InfoPanels() {
   return (
     <div
       id="info-viewport"
-      className="absolute right-[5vw] lg:right-[8vw] top-[50%] -translate-y-1/2 w-[85vw] md:w-[42vw] lg:w-[35vw] h-[55vh] z-30 pointer-events-none flex items-center"
+      className="absolute left-[5vw] right-[5vw] bottom-[6vh] md:left-auto md:right-[5vw] md:top-[50%] md:bottom-auto md:-translate-y-1/2 md:w-[42vw] lg:right-[8vw] lg:w-[35vw] w-auto h-[34vh] md:h-[55vh] z-30 pointer-events-none flex items-center"
     >
       {projects.map((p) => (
         <div
@@ -111,12 +111,12 @@ export default function InfoPanels() {
           className="project-info absolute w-full flex flex-col justify-between h-full opacity-0 translate-y-[80px]"
         >
           <div>
-            <div className="flex items-center gap-4 text-xs font-semibold font-mono tracking-widest text-ink/60 mb-8">
+            <div className="flex items-center gap-4 text-[10px] sm:text-xs font-semibold font-mono tracking-widest text-ink/60 mb-4 sm:mb-8">
               <span className="text-lg font-serif">{p.number}</span>
               <span>/</span>
               <span>{p.total}</span>
             </div>
-            <h2 className="font-serif text-5xl lg:text-7xl text-ink font-medium tracking-tight mb-6">
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-7xl text-ink font-medium tracking-tight mb-4 sm:mb-6 max-w-[9ch]">
               {p.title}
             </h2>
             {p.isButton ? (
@@ -129,11 +129,11 @@ export default function InfoPanels() {
               />
             )}
           </div>
-          <div className="border-t border-ink/10 pt-6">
-            <p className="text-xs font-mono tracking-wider uppercase text-ink/50 mb-2">
+          <div className="border-t border-ink/10 pt-4 sm:pt-6">
+            <p className="text-[10px] sm:text-xs font-mono tracking-wider uppercase text-ink/50 mb-2">
               {p.scopeLabel}
             </p>
-            <p className="text-xs leading-relaxed text-ink/80 max-w-sm">
+            <p className="text-[11px] sm:text-xs leading-relaxed text-ink/80 max-w-sm">
               {p.scope}
             </p>
           </div>
