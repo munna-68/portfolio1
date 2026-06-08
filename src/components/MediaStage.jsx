@@ -1,4 +1,4 @@
-import { slides, PEXELS_VIDEO, LOCAL_FALLBACK } from '../data/slides'
+import { slides } from '../data/slides'
 
 export default function MediaStage() {
   return (
@@ -10,10 +10,11 @@ export default function MediaStage() {
           id={`media-${slide.id}`}
           style={i > 0 ? { clipPath: 'inset(100% 0% 0% 0%)' } : undefined}
         >
-          <video muted loop autoPlay playsInline preload="auto">
-            <source src={PEXELS_VIDEO} type="video/mp4" />
-            <source src={LOCAL_FALLBACK} type="video/mp4" />
-          </video>
+          {slide.video && (
+            <video muted loop autoPlay playsInline preload="auto">
+              <source src={slide.video} type="video/mp4" />
+            </video>
+          )}
           {slide.overlay && (
             <div className={`absolute inset-0 ${slide.overlay}`} />
           )}
