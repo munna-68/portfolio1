@@ -124,7 +124,7 @@ export default function App() {
             <div className="font-mono text-[5.5rem] md:text-[9.5rem] leading-none text-[#F4F3EF] tracking-tighter mix-blend-difference">
               {loadingProgress}
             </div>
-            <div className="w-2 h-2 md:w-3 md:h-3 bg-[#F4F3EF] mb-4 md:mb-6 mr-2" />
+
           </div>
         </div>
 
