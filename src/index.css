@@ -424,3 +424,8 @@ textarea.field-input {
     transition: none;
   }
 }
+
+/* ── Preloader ── */
+.preloader-smooth {
+  transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
