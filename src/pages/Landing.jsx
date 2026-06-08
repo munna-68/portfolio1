@@ -150,13 +150,6 @@ export default function Landing() {
                 </div>
               </div>
 
-              <div className="hidden md:block label-eyebrow text-ink/55 pointer-events-auto mt-1.5">
-                web developer
-              </div>
-
-              <div className="hidden md:block label-eyebrow text-ink/55 pointer-events-auto mt-1.5">
-                selected projects
-              </div>
 
               <button
                 type="button"
