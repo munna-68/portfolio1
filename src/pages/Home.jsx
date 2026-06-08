@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { usePageEntrance } from '../hooks/usePageEntrance'
 import { TransitionLink } from '../components/LiquidTransition'
+import munnaImg from '../imgs/munna.jpeg'
 
 export default function Home() {
   const rootRef = useRef(null)
@@ -61,7 +62,7 @@ export default function Home() {
             <div className="lg:col-span-5 w-full">
               <div className="w-full aspect-[3/4] overflow-hidden bg-ink/5">
                 <img
-                  src="/images/about-photo.jpg"
+                  src={munnaImg}
                   alt="Munna"
                   className="w-full h-full object-cover"
                 />
