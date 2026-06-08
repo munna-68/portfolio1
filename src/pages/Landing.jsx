@@ -150,7 +150,6 @@ export default function Landing() {
                 </span>
               </div>
 
-
               <button
                 type="button"
                 onClick={toggleMenu}
@@ -202,15 +201,7 @@ export default function Landing() {
                 }}
               />
 
-              <span className="relative label-eyebrow text-ink/55 mb-6 md:mb-8">
-                <span className="text-line-mask inline-block">
-                  <span className="text-char-slide">
-                    munna-68 · web developer
-                  </span>
-                </span>
-              </span>
-
-              <h1 className="relative font-serif text-[18vw] sm:text-[5.5rem] md:text-[8rem] lg:text-[10.5rem] font-medium tracking-[-0.04em] text-ink leading-[0.9] mb-5 md:mb-6 w-full max-w-6xl">
+              <h1 className="relative font-serif text-[18vw] sm:text-[5.5rem] md:text-[8rem] lg:text-[10.5rem] font-medium tracking-[-0.04em] text-ink leading-[0.9] mt-12 md:mt-0 mb-5 md:mb-6 w-full max-w-6xl">
                 <span className="text-line-mask inline-block">
                   <span className="text-char-slide">
                     Selected work
