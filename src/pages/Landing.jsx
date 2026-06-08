@@ -142,12 +142,12 @@ export default function Landing() {
               className="absolute top-0 left-0 w-full px-[5vw] md:px-[8vw] py-4 md:py-8 z-40 pointer-events-none flex justify-between items-start gap-4 md:gap-6"
             >
               <div className="pointer-events-auto leading-none">
-                <div className="font-serif text-xl md:text-[1.75rem] font-medium tracking-tight text-ink leading-none">
+                <span className="font-serif text-xl md:text-[1.75rem] font-medium tracking-tight text-ink leading-none">
                   munna
-                </div>
-                <div className="font-serif text-xl md:text-[1.75rem] font-medium italic text-accent leading-none mt-0.5">
+                </span>
+                <span className="font-serif text-xl md:text-[1.75rem] font-medium italic text-accent leading-none ml-0.5">
                   .
-                </div>
+                </span>
               </div>
 
 

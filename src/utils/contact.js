@@ -26,29 +26,14 @@
     - resolve with an object like { ok: true } on success
 */
 
-const SUBMIT_LATENCY_MS = 900
-
 export async function sendContactEmail(payload) {
-  // TODO: replace this stub with a real email provider call.
-  // See the file header for drop-in options (Formspree, EmailJS, custom API).
-  // eslint-disable-next-line no-console
-  console.info('[contact] payload (stub):', payload)
-
-  return new Promise((resolve, reject) => {
-    window.setTimeout(() => {
-      // Validation gate — keep the demo honest about the contract.
-      if (!payload?.email || !payload?.message) {
-        reject(new Error('Missing required fields.'))
-        return
-      }
-      // Simulated network failure toggle (kept off by default; flip for QA).
-      if (payload?.__simulateFailure) {
-        reject(new Error('Network error. Please try again.'))
-        return
-      }
-      resolve({ ok: true })
-    }, SUBMIT_LATENCY_MS)
+  const res = await fetch('https://formsubmit.co/ajax/mahamudmunna8@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify(payload),
   })
+  if (!res.ok) throw new Error('Failed to send. Please try again.')
+  return { ok: true }
 }
 
 export function validateContactForm(values) {

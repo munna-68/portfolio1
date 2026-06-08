@@ -97,7 +97,7 @@ export default function About() {
               </div>
               <div className="flex justify-between items-baseline py-4 border-t border-ink/10">
                 <span className="label-eyebrow font-bold text-ink/50">STACK</span>
-                <span className="text-[15px] md:text-[16px] text-ink/80 font-normal">React · Tailwind · Vite</span>
+                <span className="text-[15px] md:text-[16px] text-ink/80 font-normal">React · Next.js · TypeScript</span>
               </div>
             </div>
           </div>
